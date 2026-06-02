@@ -1,0 +1,9 @@
+# Video — hosted on Cloudflare R2, not in repo
+assets/*.mp4
+assets/*.mov
+assets/*.webm
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
