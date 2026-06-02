@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { margin: 0; padding: 0; background: var(--ktm-black); }
+  .card { padding: 24px 28px; display: flex; flex-direction: column; gap: 14px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .swatch { flex: 1 1 0; min-width: 80px; padding: 12px; min-height: 76px; display: flex; flex-direction: column; justify-content: space-between; font-family: var(--ktm-font-sans); border-radius: 3px; }
+  .name { font-size: 12px; font-weight: 700; }
+  .hex { font-size: 11px; font-family: ui-monospace, Menlo, monospace; opacity: 0.85; }
+  .label { font-family: var(--ktm-font-sans); font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ktm-text-50); }
+</style>
+</head>
+<body class="ktm-body">
+<div class="card">
+  <div class="label">Neutrals (Dark)</div>
+  <div class="row">
+    <div class="swatch" style="background:#0a0a0a; color:#fff; border:1px solid #2a2a2a;"><span class="name">Page</span><span class="hex">#0A0A0A</span></div>
+    <div class="swatch" style="background:#111111; color:#fff; border:1px solid #2a2a2a;"><span class="name">Offer BG</span><span class="hex">#111111</span></div>
+    <div class="swatch" style="background:#1a1a1a; color:#fff;"><span class="name">Card</span><span class="hex">#1A1A1A</span></div>
+    <div class="swatch" style="background:#1e1e1e; color:#fff;"><span class="name">Input</span><span class="hex">#1E1E1E</span></div>
+    <div class="swatch" style="background:#2a2a2a; color:#fff;"><span class="name">Divider</span><span class="hex">#2A2A2A</span></div>
+    <div class="swatch" style="background:#333; color:#fff;"><span class="name">Border</span><span class="hex">#333333</span></div>
+    <div class="swatch" style="background:#444; color:#fff;"><span class="name">Fine</span><span class="hex">#444444</span></div>
+    <div class="swatch" style="background:#555; color:#fff;"><span class="name">Placeholder</span><span class="hex">#555555</span></div>
+  </div>
+</div>
+</body>
+</html>

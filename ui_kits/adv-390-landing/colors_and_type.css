@@ -1,0 +1,203 @@
+/* ============================================================
+   KTM Israel — Color & Type Tokens
+   Source: דף נחיתהADV 390/src/app/globals.css + components
+   ============================================================ */
+
+/* Fonts ---------------------------------------------------- */
+/* Heebo (Hebrew + Latin) — used for the entire landing page.   */
+/* Loaded via Google Fonts CDN; codebase uses Next.js font.    */
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap");
+
+:root {
+  /* ── Brand Colors ─────────────────────────────────────── */
+  --ktm-orange:        #ff6600;  /* signature; CTA, headlines, accents     */
+  --ktm-orange-dark:   #cc5200;  /* CTA hover/pressed                       */
+  --ktm-orange-10:     rgba(255, 102, 0, 0.10);
+  --ktm-orange-20:     rgba(255, 102, 0, 0.20);
+  --ktm-orange-30:     rgba(255, 102, 0, 0.30);
+  --ktm-orange-40:     rgba(255, 102, 0, 0.40);
+
+  /* ── Neutrals (Dark Theme) ────────────────────────────── */
+  --ktm-black:         #0a0a0a;  /* page background                         */
+  --ktm-gray:          #1a1a1a;  /* card background                         */
+  --ktm-gray-input:    #1e1e1e;  /* form-field background                   */
+  --ktm-gray-mid:      #2a2a2a;  /* divider, hover surface                  */
+  --ktm-gray-line:     #333333;  /* default input border                    */
+  --ktm-gray-555:      #555555;  /* placeholder text                        */
+  --ktm-gray-444:      #444444;  /* fine-print text                         */
+
+  /* ── Foreground ───────────────────────────────────────── */
+  --ktm-white:         #ffffff;  /* primary text on dark                    */
+  --ktm-text:          #e8e8e8;  /* body text on dark                       */
+  --ktm-text-80:       rgba(232, 232, 232, 0.80);
+  --ktm-text-60:       rgba(232, 232, 232, 0.60);
+  --ktm-text-50:       rgba(232, 232, 232, 0.50);
+  --ktm-text-40:       rgba(232, 232, 232, 0.40);
+  --ktm-text-20:       rgba(232, 232, 232, 0.20);
+
+  /* ── Semantic ─────────────────────────────────────────── */
+  --ktm-success:       #16a34a;  /* validated form field                    */
+  --ktm-success-dark:  #15803d;
+  --ktm-error:         #ef4444;
+  --ktm-whatsapp:      #25D366;  /* WA chat CTA                             */
+  --ktm-whatsapp-dark: #1ebe5d;
+
+  /* ── Light theme (email template) ─────────────────────── */
+  --ktm-paper:         #ffffff;
+  --ktm-paper-bg:      #f4f4f4;
+  --ktm-paper-card:    #f8f8f8;
+  --ktm-paper-warn:    #fff3e8;  /* soft orange alert                       */
+  --ktm-paper-warn-border: #ffd4a8;
+  --ktm-ink:           #111111;
+  --ktm-ink-2:         #555555;
+
+  /* ── Type Stack ───────────────────────────────────────── */
+  --ktm-font-sans:     "Heebo", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* ── Type Scale (px) ──────────────────────────────────── */
+  /* Black weight (900) is THE brand voice. Use sparingly at large sizes.   */
+  --ktm-text-xs:    12px;
+  --ktm-text-sm:    14px;
+  --ktm-text-base:  16px;
+  --ktm-text-lg:    18px;
+  --ktm-text-xl:    20px;
+  --ktm-text-2xl:   24px;
+  --ktm-text-3xl:   30px;
+  --ktm-text-4xl:   36px;
+  --ktm-text-5xl:   48px;
+  --ktm-text-6xl:   60px;
+  --ktm-text-7xl:   72px;
+  --ktm-text-8xl:   96px;
+
+  /* ── Tracking ─────────────────────────────────────────── */
+  --ktm-track-tight:    -0.02em;
+  --ktm-track-normal:    0;
+  --ktm-track-wide:      0.05em;
+  --ktm-track-wider:     0.1em;
+  --ktm-track-widest:    0.2em;
+  --ktm-track-massive:   0.3em;  /* eyebrows like "ההצעה" / "הטכנולוגיה"   */
+
+  /* ── Radii ────────────────────────────────────────────── */
+  /* Strong contrast: hard-edged CTAs sit next to round form fields.       */
+  --ktm-radius-none:   0;
+  --ktm-radius-sm:     4px;
+  --ktm-radius-md:     10px;   /* email lead-info card                     */
+  --ktm-radius-lg:     12px;   /* form inputs, primary button (rounded-xl) */
+  --ktm-radius-xl:     16px;   /* mobile offer card                        */
+  --ktm-radius-2xl:    24px;   /* modal                                    */
+
+  /* ── Spacing ──────────────────────────────────────────── */
+  --ktm-space-1:  4px;
+  --ktm-space-2:  8px;
+  --ktm-space-3:  12px;
+  --ktm-space-4:  16px;
+  --ktm-space-5:  20px;
+  --ktm-space-6:  24px;
+  --ktm-space-8:  32px;
+  --ktm-space-10: 40px;
+  --ktm-space-12: 48px;
+  --ktm-space-16: 64px;
+  --ktm-space-20: 80px;
+
+  /* ── Shadows / Glows ──────────────────────────────────── */
+  /* KTM rarely uses drop shadows in dark UI — it uses orange glows.       */
+  --ktm-glow-sm:    0 0 60px rgba(255, 102, 0, 0.20);
+  --ktm-glow-lg:    0 0 120px rgba(255, 102, 0, 0.30);
+  --ktm-shadow-modal: 0 25px 50px -12px rgba(0, 0, 0, 0.50);
+  --ktm-shadow-card:  0 4px 24px rgba(0, 0, 0, 0.10);   /* email template  */
+}
+
+/* ============================================================
+   Semantic Element Styles
+   ============================================================ */
+
+html { scroll-behavior: smooth; }
+
+body.ktm-body {
+  background-color: var(--ktm-black);
+  color: var(--ktm-text);
+  font-family: var(--ktm-font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Display & Headline ----------------------------------------- */
+.ktm-display {              /* hero number, e.g. "1,958" */
+  font-family: var(--ktm-font-sans);
+  font-weight: 900;
+  font-size: clamp(60px, 8vw, 96px);
+  line-height: 0.95;
+  letter-spacing: var(--ktm-track-tight);
+  color: var(--ktm-orange);
+  font-variant-numeric: tabular-nums;
+}
+
+.ktm-h1 {                   /* "ADV 390 R" page-level                */
+  font-family: var(--ktm-font-sans);
+  font-weight: 900;
+  font-size: clamp(48px, 6vw, 96px);
+  line-height: 1;
+  letter-spacing: var(--ktm-track-tight);
+  color: var(--ktm-white);
+}
+
+.ktm-h2 {                   /* section title, e.g. "למה ADV 390 R?"  */
+  font-family: var(--ktm-font-sans);
+  font-weight: 900;
+  font-size: clamp(36px, 4vw, 48px);
+  line-height: 1.05;
+  color: var(--ktm-white);
+}
+
+.ktm-h3 {                   /* feature card title                     */
+  font-family: var(--ktm-font-sans);
+  font-weight: 900;
+  font-size: var(--ktm-text-xl);
+  line-height: 1.2;
+  color: var(--ktm-white);
+}
+
+.ktm-eyebrow {              /* "ההצעה" / "הטכנולוגיה" all-caps label  */
+  font-family: var(--ktm-font-sans);
+  font-weight: 700;
+  font-size: var(--ktm-text-sm);
+  letter-spacing: var(--ktm-track-massive);
+  text-transform: uppercase;
+  color: var(--ktm-orange);
+}
+
+.ktm-lead {                 /* tagline under hero                      */
+  font-family: var(--ktm-font-sans);
+  font-weight: 500;
+  font-size: clamp(20px, 2vw, 24px);
+  line-height: 1.4;
+  color: var(--ktm-text-80);
+}
+
+.ktm-p {                    /* body                                    */
+  font-family: var(--ktm-font-sans);
+  font-weight: 400;
+  font-size: var(--ktm-text-base);
+  line-height: 1.6;
+  color: var(--ktm-text-60);
+}
+
+.ktm-fine {                 /* legal / disclaimer                      */
+  font-family: var(--ktm-font-sans);
+  font-weight: 400;
+  font-size: var(--ktm-text-xs);
+  line-height: 1.5;
+  color: var(--ktm-text-40);
+}
+
+/* Accents --------------------------------------------------- */
+.ktm-accent-bar {           /* the 16-24px h-1 orange divider          */
+  display: block;
+  width: 64px;
+  height: 4px;
+  background: var(--ktm-orange);
+  margin: 16px auto;
+}
+
+/* Numbers — always tabular -------------------------------- */
+.ktm-num { font-variant-numeric: tabular-nums; font-weight: 900; }

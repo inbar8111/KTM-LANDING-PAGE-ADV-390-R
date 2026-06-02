@@ -1,0 +1,13 @@
+# Video files — hosted on Cloudflare R2, not in repo
+assets/*.mp4
+assets/*.mov
+assets/*.webm
+ui_kits/adv-390-landing/assets/*.mp4
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Thumbnails
+.thumbnail

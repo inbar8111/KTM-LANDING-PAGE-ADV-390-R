@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { margin: 0; padding: 0; background: var(--ktm-black); }
+  .card { padding: 24px 28px; display: flex; flex-direction: column; gap: 16px; }
+  .row { display: flex; align-items: stretch; gap: 12px; flex-wrap: wrap; }
+  .swatch { flex: 1 1 0; min-width: 100px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; min-height: 92px; border-radius: 4px; font-family: var(--ktm-font-sans); }
+  .swatch .name { font-size: 13px; font-weight: 700; }
+  .swatch .hex { font-size: 12px; font-family: ui-monospace, "SF Mono", Menlo, monospace; opacity: 0.85; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body class="ktm-body">
+<div class="card">
+  <div class="row">
+    <div class="swatch" style="background:#ff6600; color:#000;">
+      <span class="name">KTM Orange</span>
+      <span class="hex">#FF6600</span>
+    </div>
+    <div class="swatch" style="background:#cc5200; color:#fff;">
+      <span class="name">Orange Dark</span>
+      <span class="hex">#CC5200</span>
+    </div>
+    <div class="swatch" style="background:#0a0a0a; color:#fff; border:1px solid #2a2a2a;">
+      <span class="name">KTM Black</span>
+      <span class="hex">#0A0A0A</span>
+    </div>
+    <div class="swatch" style="background:#e8e8e8; color:#0a0a0a;">
+      <span class="name">KTM Text</span>
+      <span class="hex">#E8E8E8</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { margin: 0; padding: 0; background: var(--ktm-black); }
+  .card { padding: 24px 28px; display: flex; flex-direction: column; gap: 14px; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .swatch { flex: 1 1 0; min-width: 110px; padding: 14px; min-height: 84px; display: flex; flex-direction: column; justify-content: space-between; font-family: var(--ktm-font-sans); border-radius: 4px; }
+  .name { font-size: 12px; font-weight: 700; }
+  .hex { font-size: 11px; font-family: ui-monospace, Menlo, monospace; opacity: 0.85; }
+  .role { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; opacity: 0.7; text-transform: uppercase; }
+</style>
+</head>
+<body class="ktm-body">
+<div class="card">
+  <div class="row">
+    <div class="swatch" style="background:#16a34a; color:#fff;">
+      <span class="role">VALID</span>
+      <div style="display:flex; justify-content:space-between; align-items:flex-end;"><span class="name">Success</span><span class="hex">#16A34A</span></div>
+    </div>
+    <div class="swatch" style="background:#ef4444; color:#fff;">
+      <span class="role">ERROR</span>
+      <div style="display:flex; justify-content:space-between; align-items:flex-end;"><span class="name">Error</span><span class="hex">#EF4444</span></div>
+    </div>
+    <div class="swatch" style="background:#25D366; color:#fff;">
+      <span class="role">WHATSAPP CTA</span>
+      <div style="display:flex; justify-content:space-between; align-items:flex-end;"><span class="name">WA Green</span><span class="hex">#25D366</span></div>
+    </div>
+    <div class="swatch" style="background:#fff3e8; color:#cc4400; border: 1px solid #ffd4a8;">
+      <span class="role">EMAIL ALERT</span>
+      <div style="display:flex; justify-content:space-between; align-items:flex-end;"><span class="name">Warn Tint</span><span class="hex">#FFF3E8</span></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

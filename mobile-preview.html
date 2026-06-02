@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<title>ADV 390 R — Mobile Preview</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #1a1a1a;
+    color: #e8e8e8;
+    font-family: 'Heebo', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 32px 16px 64px;
+    gap: 24px;
+  }
+  .page-hint {
+    color: #888;
+    font-size: 13px;
+    text-align: center;
+    max-width: 420px;
+    line-height: 1.5;
+  }
+  .page-hint strong { color: #ff6600; }
+
+  /* ===== Mobile screen content (inside the iPhone frame) ===== */
+  .screen {
+    direction: rtl;
+    background: #0a0a0a;
+    color: #e8e8e8;
+    font-family: 'Heebo', system-ui, sans-serif;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+  }
+  .screen::-webkit-scrollbar { width: 0; }
+
+  /* ─── 0. Top header bar ─── */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 16px;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,102,0,0.22);
+  }
+  .topbar .ktm-box {
+    height: 26px;
+    width: auto;
+    background: #ff6600;
+    padding: 5px 8px;
+    border-radius: 5px;
+    box-sizing: content-box;
+    display: block;
+  }
+  .topbar .dlb {
+    height: 30px;
+    width: auto;
+    display: block;
+  }
+
+  /* ─── 1. Video block ─── */
+  .video-block {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    overflow: hidden;
+  }
+  .video-el {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    background: #000;
+  }
+  .play-btn {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+  .play-btn-inner {
+    width: 64px;
+    height: 64px;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.55);
+    border: 2px solid rgba(255,255,255,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .play-btn-inner svg { color: #fff; }
+
+  .warranty-badge {
+    position: absolute;
+    left: 10px;
+    bottom: 8px;
+    width: 76px;
+    height: auto;
+    z-index: 3;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.55));
+  }
+
+  .video-caption {
+    position: absolute;
+    right: 12px;
+    bottom: 10px;
+    z-index: 3;
+    color: #fff;
+    text-align: right;
+    line-height: 1.05;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+  }
+  .video-caption .model {
+    font-weight: 900;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    color: #fff;
+  }
+  .video-caption .model em {
+    font-style: normal;
+    color: #ff6600;
+  }
+
+  /* ─── 2. Offer ─── */
+  .offer-wrap {
+    padding: 28px 20px 8px;
+  }
+  .offer {
+    border-radius: 28px;
+    border: 2px solid #ff6600;
+    background: linear-gradient(180deg, #121212 0%, #0a0a0a 100%);
+    padding: 28px 20px 26px;
+    text-align: center;
+    box-shadow:
+      0 0 0 1px rgba(255,102,0,0.08) inset,
+      0 20px 50px -20px rgba(255,102,0,0.35);
+  }
+  .offer-eyebrow {
+    color: rgba(232,232,232,0.55);
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .offer-eyebrow .dot {
+    color: #ff6600;
+    margin: 0 6px;
+  }
+  .offer-price {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+    line-height: 1;
+  }
+  .offer-price .num {
+    font-weight: 900;
+    font-size: 64px;
+    color: #ff6600;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -1px;
+  }
+  .offer-price .currency {
+    font-weight: 800;
+    font-size: 26px;
+    color: #fff;
+  }
+  .offer-price .per {
+    color: rgba(232,232,232,0.6);
+    font-size: 16px;
+    margin-right: 2px;
+  }
+  .offer-terms {
+    color: #fff;
+    font-weight: 800;
+    font-size: 18px;
+    margin-top: 14px;
+  }
+  .offer-fine {
+    color: rgba(232,232,232,0.45);
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  .offer-full {
+    color: rgba(232,232,232,0.55);
+    font-size: 13px;
+    margin-top: 10px;
+    font-weight: 500;
+  }
+  .offer-full b {
+    color: #fff;
+    font-weight: 700;
+  }
+  .offer-divider {
+    height: 1px;
+    background: rgba(255,102,0,0.18);
+    margin: 16px 0 14px;
+  }
+  .offer-pay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .offer-pay svg { color: #ff6600; flex-shrink: 0; }
+  .offer-pay .pay-txt {
+    text-align: right;
+    line-height: 1.25;
+  }
+  .offer-pay .pay-txt .t1 {
+    color: #ff6600;
+    font-weight: 900;
+    font-size: 16px;
+    letter-spacing: 0.04em;
+  }
+  .offer-pay .pay-txt .t2 {
+    color: rgba(232,232,232,0.7);
+    font-size: 12.5px;
+    font-weight: 500;
+  }
+
+  /* ─── 3. Form ─── */
+  .form-wrap {
+    padding: 22px 20px 28px;
+  }
+  .form-card {
+    border-radius: 28px;
+    background: #111;
+    border: 1px solid rgba(255,102,0,0.18);
+    padding: 22px 18px 20px;
+    box-shadow: 0 18px 40px -25px rgba(0,0,0,0.8);
+  }
+  .form-title {
+    text-align: center;
+    margin-bottom: 14px;
+  }
+  .form-title .lead {
+    color: #ff6600;
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 1.15;
+  }
+  .form-title .sub {
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.2;
+    margin-top: 2px;
+  }
+  .field {
+    width: 100%;
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 16px;
+    color: #fff;
+    padding: 14px 16px;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    transition: border-color 160ms ease, background 160ms ease;
+  }
+  .field::placeholder { color: #666; }
+  .field:focus { border-color: #ff6600; background: #232323; }
+  .field-select {
+    background-image:
+      linear-gradient(45deg, transparent 50%, #888 50%),
+      linear-gradient(135deg, #888 50%, transparent 50%);
+    background-position:
+      left 18px center,
+      left 12px center;
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+    padding-left: 36px;
+  }
+  .field-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .field.invalid { border-color: #e0402b; background: #241818; }
+  .field-err {
+    color: #ff7a66;
+    font-size: 11.5px;
+    margin: -4px 2px 0;
+    text-align: right;
+  }
+  .consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin-top: 2px;
+    cursor: pointer;
+    text-align: right;
+  }
+  .consent input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .consent .box {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 7px;
+    border: 1.5px solid #444;
+    background: #1e1e1e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 150ms ease;
+    margin-top: 1px;
+  }
+  .consent input:checked + .box {
+    background: #ff6600;
+    border-color: #ff6600;
+  }
+  .consent .box svg { color: #000; opacity: 0; transition: opacity 120ms ease; }
+  .consent input:checked + .box svg { opacity: 1; }
+  .consent.invalid .box { border-color: #e0402b; }
+  .consent .txt {
+    color: rgba(232,232,232,0.7);
+    font-size: 12.5px;
+    line-height: 1.4;
+  }
+  .submit {
+    width: 100%;
+    background: #ff6600;
+    color: #000;
+    border: none;
+    border-radius: 18px;
+    padding: 16px;
+    font-weight: 900;
+    font-size: 16px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 4px;
+    font-family: inherit;
+    transition: background 160ms ease;
+  }
+  .submit:hover { background: #cc5200; }
+  .submit:disabled { opacity: 0.5; cursor: default; }
+  .form-fine {
+    color: #555;
+    font-size: 11px;
+    text-align: center;
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+  .privacy-link {
+    color: #ff6600;
+    text-decoration: underline;
+    font-weight: 600;
+  }
+
+  /* Sticky scroll hint that fades after scrolling */
+  .scroll-hint {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    pointer-events: none;
+    transition: opacity 240ms ease;
+  }
+  .scroll-hint .label {
+    color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+  }
+  .scroll-hint svg {
+    color: #ff6600;
+    animation: bob 1.6s ease-in-out infinite;
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+  }
+
+  /* ─── Thank-you popup ─── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    animation: fade 220ms ease;
+  }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+  .modal {
+    width: 100%;
+    max-width: 320px;
+    background: linear-gradient(180deg, #161616 0%, #0c0c0c 100%);
+    border: 1px solid rgba(255,102,0,0.3);
+    border-radius: 28px;
+    padding: 28px 22px 24px;
+    text-align: center;
+    box-shadow: 0 30px 70px -20px rgba(0,0,0,0.8);
+    animation: pop 260ms cubic-bezier(0.2,1.2,0.3,1);
+  }
+  @keyframes pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .modal .check {
+    width: 58px;
+    height: 58px;
+    border-radius: 999px;
+    background: rgba(255,102,0,0.14);
+    border: 1.5px solid #ff6600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+  }
+  .modal .check svg { color: #ff6600; }
+  .modal h3 {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 900;
+    margin: 0 0 6px;
+  }
+  .modal p {
+    color: rgba(232,232,232,0.65);
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0 0 18px;
+  }
+  .modal .quick {
+    color: rgba(232,232,232,0.55);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .modal .arrow {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+  .modal .arrow svg { color: #ff6600; animation: bob 1.4s ease-in-out infinite; }
+  .wa-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    background: #25D366;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 800;
+    font-family: inherit;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 150ms ease;
+  }
+  .wa-btn:hover { background: #1eb955; }
+  .wa-btn svg { flex-shrink: 0; }
+  .modal .close {
+    background: none;
+    border: none;
+    color: rgba(232,232,232,0.4);
+    font-size: 13px;
+    font-family: inherit;
+    margin-top: 12px;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+  <div class="page-hint">
+    <strong>תצוגה מקדימה — מובייל</strong><br/>
+    סרטון לרוחב המסך + תג אחריות בפינה · הצעת מחיר נקייה · טופס מעוגל
+  </div>
+
+  <div id="root"></div>
+
+  <script type="text/babel" src="ios-frame.jsx"></script>
+  <script type="text/babel">
+    const { IOSDevice } = window;
+
+    function Screen() {
+      const scrollRef = React.useRef(null);
+      const videoRef = React.useRef(null);
+      const [playing, setPlaying] = React.useState(false);
+      const handlePlay = () => {
+        if (videoRef.current) { videoRef.current.play(); setPlaying(true); }
+      };
+      const [showHint, setShowHint] = React.useState(true);
+      React.useEffect(() => {
+        const el = scrollRef.current;
+        if (!el) return;
+        const onScroll = () => setShowHint(el.scrollTop < 30);
+        el.addEventListener('scroll', onScroll, { passive: true });
+        return () => el.removeEventListener('scroll', onScroll);
+      }, []);
+
+      const WHATSAPP = "972500000000"; // ← replace with the real number
+      const WEBHOOK = "https://hook.eu1.make.com/cj13oqusi8whr17zdenvha4wersapub6";
+
+      const [form, setForm] = React.useState({ name: "", phone: "", email: "", agency: "" });
+      const [consent, setConsent] = React.useState(false);
+      const [submitted, setSubmitted] = React.useState(false);
+      const [done, setDone] = React.useState(false);
+      const [sending, setSending] = React.useState(false);
+
+      const phoneOk = /^0\d{1,2}-?\d{7}$/.test(form.phone.replace(/\s/g, ""));
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email);
+      const nameOk = form.name.trim().length >= 2;
+
+      const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        setSubmitted(true);
+        if (!(nameOk && phoneOk && emailOk && consent)) return;
+        setSending(true);
+        try {
+          await fetch(WEBHOOK, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: form.name.trim(),
+              phone: form.phone.trim(),
+              email: form.email.trim(),
+              agency: form.agency || "",
+              consent: true,
+              model: "KTM ADV 390 R",
+              source: "landing-mobile",
+              submittedAt: new Date().toISOString(),
+              date: new Date().toLocaleDateString("he-IL", { timeZone: "Asia/Jerusalem" }),
+              time: new Date().toLocaleTimeString("he-IL", { timeZone: "Asia/Jerusalem" }),
+            }),
+          });
+        } catch (err) {
+          // network/CORS error — still show thank-you so the user isn't blocked
+          console.warn("webhook error", err);
+        }
+        setSending(false);
+        setDone(true);
+      };
+
+      return (
+        <div className="screen" ref={scrollRef}>
+          {done && (
+            <div className="modal-overlay" onClick={() => setDone(false)}>
+              <div className="modal" onClick={(e) => e.stopPropagation()}>
+                <div className="check">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </div>
+                <h3>תודה רבה!</h3>
+                <p>קיבלנו את הפרטים שלך<br/>נציג יחזור אליך בהקדם</p>
+                <div className="quick">לשיחה מהירה עכשיו</div>
+                <div className="arrow">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </div>
+                <a className="wa-btn" href="https://api.whatsapp.com/send?phone=972527358014&text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91ADV%20390%20R%20" target="_blank" rel="noopener">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.47 14.38c-.3-.15-1.74-.86-2.01-.96-.27-.1-.47-.15-.66.15-.2.3-.76.96-.93 1.16-.17.2-.34.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.34.45-.51.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.66-1.6-.91-2.19-.24-.57-.48-.49-.66-.5-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.06 2.87 1.21 3.07.15.2 2.09 3.2 5.07 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.74-.71 1.99-1.4.24-.69.24-1.28.17-1.4-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.42 9.42 0 01-4.8-1.32l-.34-.2-3.57.94.95-3.48-.22-.36a9.4 9.4 0 01-1.44-5.02c0-5.2 4.24-9.43 9.45-9.43a9.4 9.4 0 016.67 2.77 9.36 9.36 0 012.76 6.67c0 5.2-4.24 9.43-9.45 9.43zm8.04-17.47A11.32 11.32 0 0012.04.5C5.79.5.7 5.58.7 11.83c0 2 .52 3.95 1.52 5.67L.6 23.5l6.13-1.61a11.3 11.3 0 005.3 1.35h.01c6.25 0 11.34-5.08 11.34-11.33 0-3.03-1.18-5.88-3.32-8.02z"/>
+                  </svg>
+                  שיחה בוואטסאפ
+                </a>
+                <button className="close" onClick={() => setDone(false)}>סגירה</button>
+              </div>
+            </div>
+          )}
+
+
+          {/* 0. Top header bar with logos */}
+          <div className="topbar">
+            <img className="ktm-box" src="assets/ktm-box.png" alt="KTM" />
+            <img className="dlb" src="assets/dlb-logo-v2.png" alt="D.L.B MotoSport — The Best Adventure You Can Get" />
+          </div>
+
+          {/* 1. Landscape video */}
+          <div className="video-block">
+            <video
+              ref={videoRef}
+              className="video-el"
+              src="assets/adv-390-r.mp4"
+              poster="assets/hero-bike.jpg"
+              playsInline
+              onEnded={() => setPlaying(false)}
+            />
+            {!playing && (
+              <div className="play-btn" onClick={handlePlay} style={{cursor:'pointer'}}>
+                <div className="play-btn-inner">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </div>
+              </div>
+            )}
+
+            {!playing && (
+              <div className="video-caption">
+                <div className="model">ADV <em>390 R</em></div>
+              </div>
+            )}
+
+            <img className="warranty-badge" src="assets/warranty-4y.png" alt="4 שנות אחריות" />
+
+            {!playing && (
+              <div className="scroll-hint" style={{ opacity: showHint ? 1 : 0 }}>
+                <span className="label">גלול למטה</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </div>
+            )}
+          </div>
+
+          {/* 2. Offer — price only, nothing else */}
+          <div className="offer-wrap">
+            <div className="offer">
+              <div className="offer-eyebrow">
+                ADV 390 R <span className="dot">·</span> החל מ-
+              </div>
+              <div className="offer-price">
+                <span className="num">1,958</span>
+                <span className="currency">₪</span>
+                <span className="per">/ חודש</span>
+              </div>
+              <div className="offer-terms">24 תשלומים ללא ריבית</div>
+              <div className="offer-fine">בכרטיס אשראי*</div>
+              <div className="offer-full">מחיר מלא: <b>46,990 ₪</b></div>
+
+              <div className="offer-divider" />
+
+              <div className="offer-pay">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
+                </svg>
+                <div className="pay-txt">
+                  <div className="t1">שלם וסע</div>
+                  <div className="t2">משלמים ומקבלים את האופנוע באותו היום</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 3. Rounded lead form */}
+          <div className="form-wrap">
+            <form className="form-card" onSubmit={handleSubmit} noValidate>
+              <div className="form-title">
+                <div className="lead">לרכיבת מבחן</div>
+                <div className="sub">מלאו את הפרטים</div>
+              </div>
+              <div className="field-stack">
+                <input
+                  className={"field" + (submitted && !nameOk ? " invalid" : "")}
+                  type="text" placeholder="שם מלא" dir="rtl"
+                  value={form.name} onChange={set("name")}
+                />
+                {submitted && !nameOk && <div className="field-err">נא להזין שם מלא</div>}
+
+                <input
+                  className={"field" + (submitted && !phoneOk ? " invalid" : "")}
+                  type="tel" placeholder="טלפון" dir="rtl" inputMode="numeric"
+                  value={form.phone} onChange={set("phone")}
+                />
+                {submitted && !phoneOk && <div className="field-err">מספר טלפון לא תקין</div>}
+
+                <input
+                  className={"field" + (submitted && !emailOk ? " invalid" : "")}
+                  type="email" placeholder="אימייל" dir="rtl"
+                  value={form.email} onChange={set("email")}
+                />
+                {submitted && !emailOk && <div className="field-err">כתובת אימייל לא תקינה</div>}
+
+                <select className="field field-select" dir="rtl" value={form.agency} onChange={set("agency")}>
+                  <option value="">בחר סוכנות (לא חובה)</option>
+                  <option>אופנועי כרמיאל</option>
+                  <option>מומוגז - ראש פינה</option>
+                  <option>מומופאן - עפולה</option>
+                  <option>סביון אופנועים - קרית ביאליק</option>
+                  <option>אולם ראשי - ת"א</option>
+                  <option>אוף-רוד - ת"א</option>
+                  <option>מאי מומו - נתניה</option>
+                  <option>ביג בן אופנועים - ירושלים</option>
+                  <option>מומוספיד - מישור אדומים</option>
+                  <option>RPM - רמת השרון</option>
+                  <option>המנהוראי - יבנה</option>
+                  <option>מלכי ריסינג - קרית גת</option>
+                  <option>אקסטרים מומוספורט - ב"ש</option>
+                  <option>סאמר אופנועים - אילת</option>
+                </select>
+
+                <label className={"consent" + (submitted && !consent ? " invalid" : "")}>
+                  <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
+                  <span className="box">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </span>
+                  <span className="txt">אני מאשר/ת קבלת תוכן פרסומי ועדכונים <span style={{color:'#ff6600'}}>*</span></span>
+                </label>
+                {submitted && !consent && <div className="field-err">יש לאשר קבלת תוכן פרסומי</div>}
+
+                <button type="submit" className="submit" disabled={sending}>
+                  {sending ? "שולח..." : "שליחה"}
+                </button>
+              </div>
+              <div className="form-fine">
+                מסירת הפרטים מהווה הסכמה <a className="privacy-link" href="https://www.motosport.co.il/page/%D7%9E%D7%93%D7%99%D7%A0%D7%99%D7%95%D7%AA-%D7%94%D7%A4%D7%A8%D7%98%D7%99%D7%95%D7%AA" target="_blank" rel="noopener">למדיניות הפרטיות</a> של ד.ל.ב מוטוספורט
+              </div>
+            </form>
+          </div>
+
+        </div>
+      );
+    }
+
+    function App() {
+      return (
+        <IOSDevice dark title="">
+          <Screen />
+        </IOSDevice>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
