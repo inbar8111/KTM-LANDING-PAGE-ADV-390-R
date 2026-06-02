@@ -125,8 +125,8 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 14px;
-    padding: 16px 12px 8px;
+    gap: 22px;
+    padding: 28px 20px 8px;
   }
   .hero-head { display: none !important; }
   .hero-head h1 { color: #fff; font-weight: 900; font-size: 34px; line-height: 1.25; margin: 0; }
@@ -135,7 +135,7 @@
   /* offer card */
   .offer {
     width: 100%;
-    max-width: 100%;
+    max-width: 360px;
     border-radius: 28px;
     border: 2px solid var(--orange);
     background: linear-gradient(180deg, #121212 0%, #0a0a0a 100%);
@@ -279,6 +279,29 @@
   }
   .wa-btn:hover { background: #1eb955; }
   .modal .close { background: none; border: none; color: rgba(232,232,232,0.4); font-size: 13px; font-family: inherit; margin-top: 12px; cursor: pointer; text-decoration: underline; }
+
+  /* ════════ MOBILE SCALE-UP ════════ */
+  @media (max-width: 859px) {
+    .hero-panel {
+      gap: 28px;
+      padding: 34px 16px 12px;
+    }
+    .offer {
+      max-width: 100%;
+      padding: 34px 24px 32px;
+    }
+    .offer-eyebrow { font-size: 14px; letter-spacing: 0.2em; margin-bottom: 12px; }
+    .offer-price .num { font-size: 80px; }
+    .offer-price .currency { font-size: 32px; }
+    .offer-price .per { font-size: 20px; }
+    .offer-terms { font-size: 22px; margin-top: 18px; }
+    .offer-fine { font-size: 14px; }
+    .offer-full { font-size: 16px; margin-top: 12px; }
+    .offer-divider { margin: 20px 0 18px; }
+    .offer-pay svg { width: 36px; height: 36px; }
+    .offer-pay .pay-txt .t1 { font-size: 20px; }
+    .offer-pay .pay-txt .t2 { font-size: 15px; }
+  }
 
   /* ════════ DESKTOP ════════ */
   @media (min-width: 860px) {
