@@ -151,11 +151,7 @@
   .offer-full { color: rgba(232,232,232,0.55); font-size: 13px; margin-top: 10px; font-weight: 500; }
   .offer-full b { color: #fff; font-weight: 700; }
   .offer-divider { height: 1px; background: rgba(255,102,0,0.18); margin: 16px 0 14px; }
-  .offer-pay { display: flex; align-items: center; justify-content: center; gap: 8px; }
-  .offer-pay svg { color: var(--orange); flex-shrink: 0; }
-  .offer-pay .pay-txt { text-align: right; line-height: 1.25; }
-  .offer-pay .pay-txt .t1 { color: var(--orange); font-weight: 900; font-size: 16px; letter-spacing: 0.04em; }
-  .offer-pay .pay-txt .t2 { color: rgba(232,232,232,0.7); font-size: 12.5px; font-weight: 500; }
+  .offer-no-double { color: rgba(232,232,232,0.4); font-size: 11px; font-weight: 500; margin-top: 12px; letter-spacing: 0.05em; }
 
   /* ─── Form ─── */
   .form-wrap { padding: 22px 20px 36px; }
@@ -294,10 +290,7 @@
     .offer-terms { font-size: 22px; margin-top: 18px; }
     .offer-fine { font-size: 14px; }
     .offer-full { font-size: 16px; margin-top: 12px; }
-    .offer-divider { margin: 20px 0 18px; }
-    .offer-pay svg { width: 36px; height: 36px; }
-    .offer-pay .pay-txt .t1 { font-size: 20px; }
-    .offer-pay .pay-txt .t2 { font-size: 15px; }
+    .offer-no-double { font-size: 13px; margin-top: 14px; }
   }
 
   /* ════════ DESKTOP ════════ */
@@ -498,14 +491,7 @@
                 <div className="offer-terms">24 תשלומים ללא ריבית</div>
                 <div className="offer-fine">בכרטיס אשראי*</div>
                 <div className="offer-full">מחיר מלא: <b>46,990 ₪</b></div>
-                <div className="offer-divider" />
-                <div className="offer-pay">
-                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
-                  <div className="pay-txt">
-                    <div className="t1">שלם וסע</div>
-                    <div className="t2">משלמים ומקבלים את האופנוע באותו היום</div>
-                  </div>
-                </div>
+                <div className="offer-no-double">ללא כפל מבצעים</div>
               </div>
             </div>
           </section>
