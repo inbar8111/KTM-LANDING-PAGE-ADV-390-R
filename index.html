@@ -421,19 +421,13 @@
         if (!(nameOk && phoneOk && emailOk && consent)) return;
         setSending(true);
         try {
-          const _now = new Date();
-          const _date = _now.toLocaleDateString("he-IL", { timeZone: "Asia/Jerusalem" });
-          const _time = _now.toLocaleTimeString("he-IL", { timeZone: "Asia/Jerusalem" });
           await fetch(WEBHOOK, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               name: form.name.trim(), phone: form.phone.trim(), email: form.email.trim(),
               agency: form.agency || "", consent: consent, model: "KTM ADV 390 R", source: "landing",
-              submittedAt: _now.toISOString(),
-              timestamp: `${_date} ${_time}`,
-              date: _date,
-              time: _time,
+              submittedAt: new Date().toISOString(),
             }),
           });
         } catch (err) { console.warn("webhook error", err); }
