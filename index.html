@@ -81,7 +81,7 @@ src="https://www.facebook.com/tr?id=XXXXXXXXXXXXXXXX&ev=PageView&noscript=1"/></
     position: absolute; inset: 0;
     width: 100%; height: 100%;
     object-fit: cover; display: block;
-    background: #000;
+    background: #000; border: none;
   }
   .play-btn {
     position: absolute; inset: 0;
@@ -410,9 +410,8 @@ src="https://www.facebook.com/tr?id=XXXXXXXXXXXXXXXX&ev=PageView&noscript=1"/></
 
     function Site() {
       const scrollRef = React.useRef(null);
-      const videoRef = React.useRef(null);
       const [playing, setPlaying] = React.useState(false);
-      const handlePlay = () => { if (videoRef.current) { videoRef.current.play(); setPlaying(true); } };
+      const handlePlay = () => setPlaying(true);
       const [showHint, setShowHint] = React.useState(true);
       const [form, setForm] = React.useState({ name: "", phone: "", email: "", agency: "" });
       const [consent, setConsent] = React.useState(false);
@@ -464,15 +463,18 @@ src="https://www.facebook.com/tr?id=XXXXXXXXXXXXXXXX&ev=PageView&noscript=1"/></
           <section className="hero">
             <div className="hero-media">
               <div className="video-frame">
-                <video
-                  ref={videoRef}
-                  className="video-el"
-                  src="https://pub-ce60e0901a0940d19d8a65b4856be61d.r2.dev/adv-390-r-hq.mp4"
-                  poster="assets/cover.jpg"
-                  playsInline
-                  controls={playing}
-                  onEnded={() => setPlaying(false)}
-                />
+                {playing ? (
+                  <iframe
+                    className="video-el"
+                    src="https://www.youtube.com/embed/tnUXBXPx3Tg?autoplay=1&rel=0&playsinline=1"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowFullScreen
+                    frameBorder="0"
+                    title="KTM ADV 390 R"
+                  />
+                ) : (
+                  <img className="video-el" src="assets/cover.jpg" alt="KTM ADV 390 R" />
+                )}
                 {!playing && (
                   <div className="play-btn" onClick={handlePlay}>
                     <div className="play-btn-inner">
